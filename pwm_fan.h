@@ -9,7 +9,7 @@
 #ifndef PWM_FAN_H
 #define PWM_FAN_H
 
-#define ABS(x) (x < 0 ? -x : x)
+#define ABS(x) (((x) < 0) ? -(x) : (x))
 
 // PWM output on RPi Plug P1 pin 12 (which is GPIO pin 18)
 // in alt fun 5.
@@ -27,9 +27,10 @@
 #define STEPS 12
 #define FAN_MIN 0
 #define FAN_MAX PWM_RANGE
-#define TEMP_STEP {48000, 50000, 52000, 54000, 56000, 58000, 60000, 62000, 64000, 66000, 68000, 70000} //[°C * 1000]
-#define SPEED_STEP {FAN_MIN, 205, 295, 385, 475, 565, 655, 745, 835, 925, 1000, FAN_MAX} // bcm2835_pwm_set_data;
+#define TEMP_STEP {48000, 49000, 50000, 52000, 54000, 56000, 58000, 60000, 62000, 64000, 66000, 68000} //[°C * 1000]
+#define SPEED_STEP {FAN_MIN, 960, 965, 970, 975, 980, 985, 990, 995, 1000, 1010, FAN_MAX} // bcm2835_pwm_set_data;
 #define TEMP_FILE "/sys/class/thermal/thermal_zone0/temp"
+/* #define TEMP_FILE "./pwm_test.txt" */
 
 /* Fan speed will change only if the difference between temperatures */
 /* is higher than hysteresis */

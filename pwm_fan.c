@@ -56,6 +56,20 @@ static int read_temperature(char *temp_file)
 	return atoi(tmp_buff);
 }
 
+static uint32_t calc_interpolation(uint32_t speed_i,
+																	 uint32_t speed_i_1,
+																	 int temp_i,
+																	 int temp_i_1,
+																	 int temp)
+{
+	double diff_1, diff_2, diff_3;
+
+	diff_1 = speed_i_1 - speed_i;
+	diff_2 = temp_i_1 - temp_i;
+	diff_3 = temp - temp_i;
+	return ((uint32_t)((diff_1 / diff_2) * diff_3)) + speed_i;
+}
+
 static uint32_t calc_fan_speed(int cpu_temp)
 {
 	int temp_step[STEPS] = TEMP_STEP;
@@ -70,10 +84,11 @@ static uint32_t calc_fan_speed(int cpu_temp)
 	for (int i = 0; i < STEPS - 1; ++i)
 		{
 			if (cpu_temp >= temp_step[i] && cpu_temp < temp_step[i + 1])
-				return (((speed_step[i + 1] - speed_step[i]) /
-								 (temp_step[i + 1] - temp_step[i])) *
-								(cpu_temp - temp_step[i]) +
-								speed_step[i]);
+				return calc_interpolation(speed_step[i],
+																	speed_step[i + 1],
+																	temp_step[i],
+																	temp_step[i + 1],
+																	cpu_temp);
 		}
 	return speed_step[STEPS - 1];
 }
@@ -81,7 +96,7 @@ static uint32_t calc_fan_speed(int cpu_temp)
 int main(int argc, char **argv)
 {
 	int cpu_temp, cpu_temp_old;
-	int fan_speed, fan_speed_old;
+	uint32_t fan_speed, fan_speed_old;
 
 	stop = 0;
 	cpu_temp = cpu_temp_old = 0;
@@ -95,6 +110,8 @@ int main(int argc, char **argv)
 
 	while (!stop)
 		{
+			bcm2835_delay(1000);
+
 			/* Get the temperature */
 			cpu_temp = read_temperature(TEMP_FILE);
 			if (cpu_temp < 0)
@@ -118,7 +135,6 @@ int main(int argc, char **argv)
 					fan_speed_old = fan_speed;
 				}
 			cpu_temp_old = cpu_temp;
-			bcm2835_delay(100);
 		}
 	printf("pwm_fan stopped.\n");
 	bcm2835_close();

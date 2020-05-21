@@ -1,8 +1,8 @@
 #!/bin/bash
 
-MIN=0
-MAX=120000
-STEP=5000
+MIN=47000
+MAX=80000
+STEP=500
 TEMP_FILE="pwm_test.txt"
 
 trap stop SIGINT
@@ -18,6 +18,6 @@ do
     for i in $(seq $MIN $STEP $MAX);
     do
         echo "$i" > "$TEMP_FILE"
-        sleep 1
+        sleep 3
     done
 done
