@@ -27,11 +27,11 @@
 #define STEPS 12
 #define FAN_MIN 0
 #define FAN_MAX PWM_RANGE
-#define TEMP_STEP {48, 50, 52, 54, 56, 58, 60, 62, 64, 66, 68, 70} //[°C]
+#define TEMP_STEP {48000, 50000, 52000, 54000, 56000, 58000, 60000, 62000, 64000, 66000, 68000, 70000} //[°C * 1000]
 #define SPEED_STEP {FAN_MIN, 205, 295, 385, 475, 565, 655, 745, 835, 925, 1000, FAN_MAX} // bcm2835_pwm_set_data;
 #define TEMP_FILE "/sys/class/thermal/thermal_zone0/temp"
 
-/* Fan speed will change only of the difference of temperature */
+/* Fan speed will change only if the difference between temperatures */
 /* is higher than hysteresis */
 #define HYST 1
 
