@@ -5,7 +5,14 @@ Simple fan control program using pulse width modulation with bcm2835 library.
 You will need to install [[https://www.airspayce.com/mikem/bcm2835/][bcm2835 library]] in order to compile the program.
 
 ** Installation
-A Makefile is in charge to build and install:
+A Makefile is in charge to build and install.
+
+*Building*:
 #+begin_example
-make install
+make
+#+end_example
+
+*Building for debug*:
+#+begin_example
+make debug
 #+end_example
