@@ -16,3 +16,20 @@ make
 #+begin_example
 make debug
 #+end_example
+
+*Installing in your raspberry*:
+#+begin_example
+sudo make install
+#+end_example
+
+This will compile and install the binary in your system, then you will need to enable and start the service so it will automatically go up on startup.
+
+#+begin_example
+sudo systemctl enable pwm_fan.service
+sudo systemctl start pwm_fan.service
+#+end_example
+
+** Electronics
+For the circuit I took the schema from: [[https://www.instructables.com/id/PWM-Regulated-Fan-Based-on-CPU-Temperature-for-Ras/][https://www.instructables.com/id/PWM-Regulated-Fan-Based-on-CPU-Temperature-for-Ras/]].
+
+[[./FZ1KYEZJCAUBAEB.LARGE.jpg]]
