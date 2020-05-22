@@ -36,5 +36,8 @@
 /* is higher than hysteresis */
 #define HYST 1
 
+/* Wait time between each update of the cpu temperature in miliseconds */
+#define WAIT_TIME 1000
+
 
 #endif

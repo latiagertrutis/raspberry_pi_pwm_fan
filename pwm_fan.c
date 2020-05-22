@@ -110,7 +110,7 @@ int main(int argc, char **argv)
 
 	while (!stop)
 		{
-			bcm2835_delay(1000);
+			bcm2835_delay(WAIT_TIME);
 
 			/* Get the temperature */
 			cpu_temp = read_temperature(TEMP_FILE);
