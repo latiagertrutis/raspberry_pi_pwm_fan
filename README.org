@@ -1,0 +1,11 @@
+* PWM fan control for Raspberry pi
+Simple fan control program using pulse width modulation with bcm2835 library.
+
+** Prerequisites
+You will need to install [[https://www.airspayce.com/mikem/bcm2835/][bcm2835 library]] in order to compile the program.
+
+** Installation
+A Makefile is in charge to build and install:
+#+begin_example
+make install
+#+end_example
